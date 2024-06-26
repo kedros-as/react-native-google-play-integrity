@@ -33,16 +33,43 @@ or
 
 
 ## Usage
+
+### Make a classic request
 ```javascript
 import PlayIntegrity from 'react-native-google-play-integrity';
 
 // Checks if Google Play Integrity API is available
 const isAvailable = await PlayIntegrity.isPlayIntegrityAvailable();
 
-// Request integrity token
 try {
 	const nonce = ... // Randomly generated nonce
 	const integrityToken = await PlayIntegrity.requestIntegrityToken(nonce);
+} catch (e) {
+	// e.code 	- IntegrityErrorCode, see https://developer.android.com/google/play/integrity/reference/com/google/android/play/core/integrity/model/IntegrityErrorCode.html#summary
+	// e.message 	- Error message
+}
+```
+### Make a standard request
+```javascript
+import PlayIntegrity from 'react-native-google-play-integrity';
+
+// Checks if Google Play Integrity API is available
+const isAvailable = await PlayIntegrity.isPlayIntegrityAvailable();
+
+try {
+	// Prepare provider i.e. on application startup
+	await PlayIntegrity.prepareStandardIntegrityTokenProvider();
+} catch (e) {
+	// e.code 	- IntegrityErrorCode, see https://developer.android.com/google/play/integrity/reference/com/google/android/play/core/integrity/model/IntegrityErrorCode.html#summary
+	// e.message 	- Error message
+}
+
+try {
+	// Checks if provider is prepared
+	const isPrepared = await PlayIntegrity.isStandardIntegrityTokenProviderPrepared();
+
+	const requestHash = ... // Randomly generated request hash
+	const integrityToken = await PlayIntegrity.requestStandardIntegrityToken(requestHash);
 } catch (e) {
 	// e.code 	- IntegrityErrorCode, see https://developer.android.com/google/play/integrity/reference/com/google/android/play/core/integrity/model/IntegrityErrorCode.html#summary
 	// e.message 	- Error message

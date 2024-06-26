@@ -1,6 +1,6 @@
 {
   "name": "react-native-google-play-integrity",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React Native implementation for Google's Play Integrity API",
   "main": "src/index.js",
   "repository": {
